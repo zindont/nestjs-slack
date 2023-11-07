@@ -5,10 +5,6 @@
   "repository": "github:bjerkio/nestjs-slack",
   "license": "Apache-2.0",
   "author": "Bjerk AS",
-  "main": "dist/plugin.js",
-  "files": [
-    "dist/"
-  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "eslint 'src/**/*.ts' --fix",
