@@ -33,7 +33,7 @@
   "devDependencies": {
     "@nestjs/common": "^9.0.3",
     "@nestjs/core": "^9.0.3",
-    "@nestjs/platform-express": "^^9.0.0",
+    "@nestjs/platform-express": "^9.0.0",
     "@nestjs/testing": "^9.0.3",
     "@simenandre/prettier": "^5.0.0",
     "@slack-wrench/jest-mock-web-client": "^1.4.0",
