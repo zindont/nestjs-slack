@@ -27,7 +27,7 @@ jobs:
         run: |
           jq '.version="${{ github.event.inputs.version }}"' package.json > /tmp/package.json
           mv /tmp/package.json package.json
-          sed -i '' 's/dist.*//g' .gitignore
+          sed -i 's/dist.*//g' .gitignore
           git status
           
       - name: Commit the new version number
