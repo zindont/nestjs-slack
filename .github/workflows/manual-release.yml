@@ -1,0 +1,43 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release'
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: yarn
+      - run: yarn install
+      - run: yarn run build
+      - run: yarn test
+        env:
+          CI: true
+      - uses: codecov/codecov-action@v3
+
+  create-release-branch:
+    name: Create release branch
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Edit the version number specified in file
+        run: |
+          jq '.version="${{ github.event.inputs.version }}"' package.json > /tmp/package.json
+          mv /tmp/package.json package.json
+
+      - name: Commit the new version number
+        run: |
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git checkout -b release/${{ github.event.inputs.version }}
+          git add .
+          git commit -m "Release version ${{ github.event.inputs.version }}"
+          git push origin release/${{ github.event.inputs.version }}
