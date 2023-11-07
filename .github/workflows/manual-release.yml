@@ -22,12 +22,7 @@ jobs:
         env:
           CI: true
       - uses: codecov/codecov-action@v3
-
-  create-release-branch:
-    name: Create release branch
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+      
       - name: Edit the version number specified in file
         run: |
           jq '.version="${{ github.event.inputs.version }}"' package.json > /tmp/package.json
